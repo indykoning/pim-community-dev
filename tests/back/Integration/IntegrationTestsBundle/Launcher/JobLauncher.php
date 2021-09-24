@@ -149,17 +149,17 @@ class JobLauncher
         $config['filePath'] = $filePath;
 
         $pathFinder = new PhpExecutableFinder();
-        $command = sprintf(
-            '%s %s/console %s --env=%s --config=\'%s\' -v %s',
+        $command = [
             $pathFinder->find(),
-             sprintf('%s/bin', $this->kernel->getProjectDir()),
+            sprintf('%s/bin/console', $this->kernel->getProjectDir()),
             'akeneo:batch:job',
-            $this->kernel->getEnvironment(),
-            json_encode($config, JSON_HEX_APOS),
+            sprintf('--env=%s',$this->kernel->getEnvironment()),
+            sprintf("--config=%s", json_encode($config, JSON_HEX_APOS)),
+            '-v',
             $jobCode
-        );
+        ];
 
-        $process = new Process([$command]);
+        $process = new Process($command);
         $process->run();
 
         if (!$process->isSuccessful()) {
@@ -361,16 +361,22 @@ class JobLauncher
      */
     public function launchConsumerOnceInBackground(int $timeLimitInSeconds = null): Process
     {
-        $command = sprintf(
-            'exec %s/console %s %s --env=%s --limit=1 --verbose %s',
-            sprintf('%s/bin', $this->kernel->getContainer()->getParameter('kernel.project_dir')),
-            static::MESSENGER_COMMAND_NAME,
-            implode(' ', static::MESSENGER_RECEIVERS),
-            $this->kernel->getEnvironment(),
-            $timeLimitInSeconds === null ? '' : sprintf('--time-limit=%d', $timeLimitInSeconds)
+        $command = array_merge(
+            [
+                sprintf('%s/bin/console', $this->kernel->getContainer()->getParameter('kernel.project_dir')),
+                static::MESSENGER_COMMAND_NAME,
+                sprintf('--env=%s', $this->kernel->getEnvironment()),
+                '--limit=1',
+                '--verbose',
+            ],
+            static::MESSENGER_RECEIVERS,
         );
 
-        $process = new Process([$command]);
+        if (null !== $timeLimitInSeconds) {
+            $command[] = sprintf('--time-limit=%d', $timeLimitInSeconds);
+        }
+
+        $process = new Process($command);
         $process->start(function (string $type, string $data) {
             if ($type === Process::ERR) {
                 $this->logger->error($data);
@@ -384,12 +390,6 @@ class JobLauncher
 
     /**
      * Launch an import in a subprocess.
-     *
-     * @param string $jobCode
-     * @param string $content
-     * @param string $username
-     * @param array  $fixturePaths
-     * @param array  $config
      *
      * @throws \Exception
      */

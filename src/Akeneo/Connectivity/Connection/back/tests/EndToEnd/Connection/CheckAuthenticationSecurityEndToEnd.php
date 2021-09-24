@@ -246,6 +246,7 @@ class CheckAuthenticationSecurityEndToEnd extends ApiTestCase
         $this->regenerateUserPassword('magento');
 
         // Assert API client
+        static::ensureKernelShutdown();
         $apiClient = static::createClient(['debug' => false]);
         $apiClient->request('POST', 'api/oauth/v1/token', $authParams, [], $serverParams);
         Assert::assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $apiClient->getResponse()->getStatusCode());
