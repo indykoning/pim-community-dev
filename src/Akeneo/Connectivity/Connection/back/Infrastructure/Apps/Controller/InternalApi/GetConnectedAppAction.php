@@ -34,7 +34,7 @@ final class GetConnectedAppAction
         $this->connectedAppRepository = $connectedAppRepository;
     }
 
-    public function __invoke(Request $request, string $connectionCode): Response
+    public function __invoke(Request $request, string $connectedAppId): Response
     {
         if (!$this->featureFlag->isEnabled()) {
             throw new NotFoundHttpException();
@@ -48,10 +48,10 @@ final class GetConnectedAppAction
             throw new AccessDeniedHttpException();
         }
 
-        $connectedApp = $this->connectedAppRepository->findOneByConnectionCode($connectionCode);
+        $connectedApp = $this->connectedAppRepository->findOneById($connectedAppId);
 
         if (null === $connectedApp) {
-            throw new NotFoundHttpException("Connected app with connection code $connectionCode does not exist.");
+            throw new NotFoundHttpException("Connected app with id $connectedAppId does not exist.");
         }
 
         return new JsonResponse($connectedApp->normalize());

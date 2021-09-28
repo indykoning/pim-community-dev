@@ -13,7 +13,7 @@ jest.mock('@src/shared/feature-flags/use-feature-flags', () => ({
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn().mockReturnValue({connectionCode: 'some_connection_code'}),
+    useParams: jest.fn().mockReturnValue({connectedAppId: '0dfce574-2238-4b13-b8cc-8d257ce7645b'}),
 }));
 
 jest.mock('@src/connect/components/ConnectedApp/ConnectedAppContainer', () => ({
@@ -28,7 +28,7 @@ beforeEach(() => {
 
 test('The connected app page renders with a connected app', async () => {
     const connectedApp = {
-        id: '12345',
+        id: '0dfce574-2238-4b13-b8cc-8d257ce7645b',
         name: 'App A',
         scopes: [
             {
@@ -46,7 +46,7 @@ test('The connected app page renders with a connected app', async () => {
     };
 
     const fetchConnectedAppResponses: MockFetchResponses = {
-        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectionCode=some_connection_code': {
+        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectedAppId=0dfce574-2238-4b13-b8cc-8d257ce7645b': {
             json: connectedApp,
         },
     };
@@ -63,7 +63,7 @@ test('The connected app page renders with a connected app', async () => {
 
 test('The connected app page renders with internal api errors', async () => {
     const fetchConnectedAppResponses: MockFetchResponses = {
-        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectionCode=some_connection_code': {
+        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectedAppId=0dfce574-2238-4b13-b8cc-8d257ce7645b': {
             reject: true,
             json: {},
         },

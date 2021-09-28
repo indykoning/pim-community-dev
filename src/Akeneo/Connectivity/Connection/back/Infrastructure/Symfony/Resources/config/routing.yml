@@ -117,6 +117,6 @@ akeneo_connectivity_connection_connect_connected_apps:
     path: '/connect/connected-apps'
 
 akeneo_connectivity_connection_connect_connected_apps_edit:
-    path: '/connect/connected-apps/{connectionCode}'
+    path: '/connect/connected-apps/{connectedAppId}'
     requirements:
-        connectionCode: '[a-zA-Z0-9_-]+'
+        connectedAppId: '[a-f0-9-]+'

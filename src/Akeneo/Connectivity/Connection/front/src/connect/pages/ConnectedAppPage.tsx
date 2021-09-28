@@ -11,8 +11,8 @@ import {useParams} from 'react-router-dom';
 export const ConnectedAppPage: FC = () => {
     const translate = useTranslate();
     const featureFlag = useFeatureFlags();
-    const {connectionCode} = useParams<{connectionCode: string}>();
-    const fetchConnectedApp = useFetchConnectedApp(connectionCode);
+    const {connectedAppId} = useParams<{connectedAppId: string}>();
+    const fetchConnectedApp = useFetchConnectedApp(connectedAppId);
     const [connectedApp, setConnectedApp] = useState<ConnectedApp | null | false>(null);
 
     useEffect(() => {

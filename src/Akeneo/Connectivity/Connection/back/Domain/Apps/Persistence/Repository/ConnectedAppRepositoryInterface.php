@@ -14,7 +14,6 @@ interface ConnectedAppRepositoryInterface
 {
     public function create(ConnectedApp $app): void;
     public function findOneById(string $appId): ?ConnectedApp;
-    public function findOneByConnectionCode(string $connectionCode): ?ConnectedApp;
     /**
      * @return ConnectedApp[]
      */

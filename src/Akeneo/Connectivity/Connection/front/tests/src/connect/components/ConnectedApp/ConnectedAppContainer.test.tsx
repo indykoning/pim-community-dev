@@ -28,7 +28,7 @@ beforeEach(() => {
 
 test('The connected app container renders', () => {
     const connectedApp = {
-        id: '12345',
+        id: '0dfce574-2238-4b13-b8cc-8d257ce7645b',
         name: 'App A',
         scopes: ['scope1', 'scope2'],
         connection_code: 'some_connection_code',

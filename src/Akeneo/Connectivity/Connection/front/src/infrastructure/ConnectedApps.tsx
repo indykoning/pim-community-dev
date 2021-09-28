@@ -10,7 +10,7 @@ export const ConnectedApps = withDependencies(() => (
         <AkeneoThemeProvider>
             <Router>
                 <Switch>
-                    <Route path='/connect/connected-apps/:connectionCode'>
+                    <Route path='/connect/connected-apps/:connectedAppId'>
                         <ConnectedAppPage />
                     </Route>
                     <Route path='/connect/connected-apps'>

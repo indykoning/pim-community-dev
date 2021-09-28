@@ -36,7 +36,7 @@ test('The connected settings renders with scopes', async () => {
     ];
 
     const fetchConnectedAppScopeMessagesResponses: MockFetchResponses = {
-        'akeneo_connectivity_connection_apps_rest_get_all_connected_app_scope_messages?connectionCode=some_connection_code':
+        'akeneo_connectivity_connection_apps_rest_get_all_connected_app_scope_messages?connectedAppId=0dfce574-2238-4b13-b8cc-8d257ce7645b':
             {
                 json: scopes,
             },
@@ -47,7 +47,7 @@ test('The connected settings renders with scopes', async () => {
     });
 
     const connectedApp = {
-        id: '12345',
+        id: '0dfce574-2238-4b13-b8cc-8d257ce7645b',
         name: 'App A',
         scopes: ['scope 1'],
         connection_code: 'some_connection_code',
@@ -78,7 +78,7 @@ test('The connected settings renders with scopes', async () => {
 
 test('The connected app settings renders without scopes', async () => {
     const fetchConnectedAppScopeMessagesResponses: MockFetchResponses = {
-        'akeneo_connectivity_connection_apps_rest_get_all_connected_app_scope_messages?connectionCode=some_connection_code':
+        'akeneo_connectivity_connection_apps_rest_get_all_connected_app_scope_messages?connectedAppId=0dfce574-2238-4b13-b8cc-8d257ce7645b':
             {
                 json: [],
             },
@@ -89,7 +89,7 @@ test('The connected app settings renders without scopes', async () => {
     });
 
     const connectedApp = {
-        id: '12345',
+        id: '0dfce574-2238-4b13-b8cc-8d257ce7645b',
         name: 'App A',
         scopes: [],
         connection_code: 'some_connection_code',

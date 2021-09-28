@@ -4,10 +4,19 @@ import {screen, waitForElement} from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
 import {renderWithProviders, historyMock} from '../../../../test-utils';
 import {ConnectedAppCard} from '@src/connect/components/ConnectedApps/ConnectedAppCard';
+import {act} from 'react-dom/test-utils';
+import userEvent from '@testing-library/user-event';
+import {ConnectedAppPage} from '@src/connect/pages/ConnectedAppPage';
+
+jest.mock('@src/connect/pages/ConnectedAppPage', () => ({
+    ...jest.requireActual('@src/connect/pages/ConnectedAppPage'),
+    ConnectedAppPage: jest.fn(() => null),
+}));
 
 beforeEach(() => {
     fetchMock.resetMocks();
     historyMock.reset();
+    jest.clearAllMocks();
 });
 
 test('The connected app card renders', async () => {
@@ -35,4 +44,12 @@ test('The connected app card renders', async () => {
     expect(
         screen.queryByText('akeneo_connectivity.connection.connect.connected_apps.list.card.manage_app')
     ).toBeInTheDocument();
+
+    act(() => {
+        userEvent.click(
+            screen.getByText('akeneo_connectivity.connection.connect.connected_apps.list.card.manage_app')
+        );
+    });
+
+    expect(historyMock.history.location.pathname).toBe('/connect/connected-apps/0dfce574-2238-4b13-b8cc-8d257ce7645b');
 });

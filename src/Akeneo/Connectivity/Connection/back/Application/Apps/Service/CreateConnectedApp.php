@@ -7,6 +7,7 @@ namespace Akeneo\Connectivity\Connection\Application\Apps\Service;
 use Akeneo\Connectivity\Connection\Domain\Apps\Model\ConnectedApp;
 use Akeneo\Connectivity\Connection\Domain\Apps\Persistence\Repository\ConnectedAppRepositoryInterface;
 use Akeneo\Connectivity\Connection\Domain\Marketplace\Model\App as MarketplaceApp;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @copyright 2021 Akeneo SAS (http://www.akeneo.com)
@@ -24,7 +25,7 @@ final class CreateConnectedApp implements CreateConnectedAppInterface
     public function execute(MarketplaceApp $marketplaceApp, array $scopes, string $connectionCode): ConnectedApp
     {
         $app = new ConnectedApp(
-            $marketplaceApp->getId(),
+            Uuid::uuid4()->toString(),
             $marketplaceApp->getName(),
             $scopes,
             $connectionCode,

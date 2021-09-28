@@ -81,19 +81,6 @@ class DbalConnectedAppRepository implements ConnectedAppRepositoryInterface
         return $dataRow ? $this->denormalizeRow($dataRow) : null;
     }
 
-    public function findOneByConnectionCode(string $connectionCode): ?ConnectedApp
-    {
-        $selectQuery = <<<SQL
-        SELECT id, name, logo, author, partner,categories, scopes, certified, connection_code
-        FROM akeneo_connectivity_connected_app
-        WHERE connection_code = :connectionCode
-        SQL;
-
-        $dataRow = $this->dbalConnection->executeQuery($selectQuery, ['connectionCode' => $connectionCode])->fetch();
-
-        return $dataRow ? $this->denormalizeRow($dataRow) : null;
-    }
-
     /**
      * @param array{
      *    id: string,

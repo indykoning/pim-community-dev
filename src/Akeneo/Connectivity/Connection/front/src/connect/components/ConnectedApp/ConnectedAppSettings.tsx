@@ -35,7 +35,7 @@ type Props = {
 export const ConnectedAppSettings: FC<Props> = ({connectedApp}) => {
     const translate = useTranslate();
     const featureFlag = useFeatureFlags();
-    const fetchConnectedAppScopeMessages = useFetchConnectedAppScopeMessages(connectedApp.connection_code);
+    const fetchConnectedAppScopeMessages = useFetchConnectedAppScopeMessages(connectedApp.id);
     const [connectedAppScopeMessages, setConnectedAppScopeMessages] = useState<ScopeMessage[] | null | false>(null);
 
     useEffect(() => {

@@ -16,11 +16,11 @@ test('it fetches the connected app', async () => {
     };
 
     mockFetchResponses({
-        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectionCode=connectionCodeA': {
+        'akeneo_connectivity_connection_apps_rest_get_connected_app?connectedAppId=0dfce574-2238-4b13-b8cc-8d257ce7645b': {
             json: expectedConnectedApp,
         },
     });
-    const {result} = renderHook(() => useFetchConnectedApp('connectionCodeA'));
+    const {result} = renderHook(() => useFetchConnectedApp('0dfce574-2238-4b13-b8cc-8d257ce7645b'));
     const connectedApp = await result.current();
 
     expect(connectedApp).toStrictEqual(expectedConnectedApp);

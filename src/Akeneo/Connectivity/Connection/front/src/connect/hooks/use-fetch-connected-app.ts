@@ -1,9 +1,9 @@
 import {useRoute} from '../../shared/router';
 import {useCallback} from 'react';
 
-export const useFetchConnectedApp = (connectionCode: string) => {
+export const useFetchConnectedApp = (connectedAppId: string) => {
     const url = useRoute('akeneo_connectivity_connection_apps_rest_get_connected_app', {
-        connectionCode: connectionCode,
+        connectedAppId: connectedAppId,
     });
 
     return useCallback(async () => {
