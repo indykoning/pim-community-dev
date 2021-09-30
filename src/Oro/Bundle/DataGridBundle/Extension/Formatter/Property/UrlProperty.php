@@ -33,7 +33,7 @@ class UrlProperty extends AbstractProperty
         $route = $this->router->generate(
             $this->get(self::ROUTE_KEY),
             $this->getParameters($record),
-            $this->getOr(self::IS_ABSOLUTE_KEY, false)
+            $this->getOr(self::IS_ABSOLUTE_KEY, Router::ABSOLUTE_PATH)
         );
 
         return $route . $this->getOr(self::ANCHOR_KEY);
